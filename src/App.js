@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [value, setValue] = useState('');
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (value) {
+      if (value % 2 == 0) {
+        setMessage('Number is even!');
+      } else {
+        setMessage('Number is odd!');
+      }
+    }
+  }, [value]);
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <span className='description'>Check the oddity of number!</span>
+      <input className='input' value={value} onChange={handleChange} />
+      <p className='text'>{message}</p>
     </div>
   );
 }
